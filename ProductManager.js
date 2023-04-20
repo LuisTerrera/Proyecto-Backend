@@ -8,7 +8,8 @@ constructor(ruta){
 }
 
 getProducts(){
-    return this.products
+    const products = fs.readFileSync(this.ruta, "utf-8")
+    return JSON.parse(products)
 }
 
 addProduct(title, description,price,thumbnail,code,stock){
@@ -44,7 +45,8 @@ addProduct(title, description,price,thumbnail,code,stock){
 }
 
 getProductById(id){
-    const filterId = this.products.filter((prod)=> (prod.id == id)) 
+    const products = JSON.parse(fs.readFileSync(this.ruta, "utf-8"))
+    const filterId = products.filter((prod)=> (prod.id == id)) 
     if (filterId.length === 0){
     return "Error, no hay ningun producto con esa Id"
     }else{
@@ -53,7 +55,8 @@ getProductById(id){
 }
 
 updateProduct(id, campo, value){
-    const filterId = this.products.filter((prod)=> (prod.id == id))
+    const products = JSON.parse(fs.readFileSync(this.ruta, "utf-8"))
+    const filterId = products.filter((prod)=> (prod.id == id))
 
     if (filterId.length === 0){
     return "Error, no hay ningun producto con esa Id"
@@ -69,7 +72,8 @@ updateProduct(id, campo, value){
 }
 
 deleteProduct(id){
-    const filterId = this.products.filter((prod)=> (prod.id == id)) 
+    const products = JSON.parse(fs.readFileSync(this.ruta, "utf-8"))
+    const filterId = products.filter((prod)=> (prod.id == id)) 
     if (filterId.length === 0){
     return "Error, no hay ningun producto con esa Id"
     }else{
@@ -81,9 +85,4 @@ deleteProduct(id){
 }
 }
 
-/* console.log(manager.getProducts()) */
-
-/* console.log (manager.getProductById(2))
-console.log(manager.updateProduct(2, "price", 500))
-console.log (manager.deleteProduct(2)) */
 module.exports = ProductManager
